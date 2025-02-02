@@ -90,4 +90,40 @@ contract FeedbackStorage {
 
         return userFeedbacks;
     }
+
+    function getFeedbackByVote(
+        string memory vote
+    ) public view returns (Feedback[] memory) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < feedbacks.length; i++) {
+            for (uint256 j = 0; j < feedbacks[i].sentiments.length; j++) {
+                if (
+                    keccak256(
+                        abi.encodePacked(feedbacks[i].sentiments[j].vote)
+                    ) == keccak256(abi.encodePacked(vote))
+                ) {
+                    count++;
+                    break; // Count each feedback only once, even if it has multiple matching votes
+                }
+            }
+        }
+
+        Feedback[] memory voteFeedbacks = new Feedback[](count);
+        uint256 index = 0;
+        for (uint256 i = 0; i < feedbacks.length; i++) {
+            for (uint256 j = 0; j < feedbacks[i].sentiments.length; j++) {
+                if (
+                    keccak256(
+                        abi.encodePacked(feedbacks[i].sentiments[j].vote)
+                    ) == keccak256(abi.encodePacked(vote))
+                ) {
+                    voteFeedbacks[index] = feedbacks[i];
+                    index++;
+                    break; // Add each feedback only once, even if it has multiple matching votes
+                }
+            }
+        }
+
+        return voteFeedbacks;
+    }
 }
