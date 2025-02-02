@@ -126,4 +126,8 @@ contract FeedbackStorage {
 
         return voteFeedbacks;
     }
+
+    function getFeedbackCount() public view returns (uint256) {
+        return feedbacks.length;
+    }
 }
