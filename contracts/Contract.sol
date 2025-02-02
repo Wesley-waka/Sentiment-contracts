@@ -60,4 +60,12 @@ contract FeedbackStorage {
             );
         }
     }
+
+    function getFeedback(
+        uint256 index
+    ) public view returns (string memory, Sentiment[] memory, address) {
+        require(index < feedbacks.length, "Feedback does not exist.");
+        Feedback storage feedback = feedbacks[index];
+        return (feedback.text, feedback.sentiments, feedback.user);
+    }
 }
