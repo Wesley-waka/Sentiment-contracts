@@ -68,4 +68,26 @@ contract FeedbackStorage {
         Feedback storage feedback = feedbacks[index];
         return (feedback.text, feedback.sentiments, feedback.user);
     }
+
+    function getFeedbackByUser(
+        address userAddress
+    ) public view returns (Feedback[] memory) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < feedbacks.length; i++) {
+            if (feedbacks[i].user == userAddress) {
+                count++;
+            }
+        }
+
+        Feedback[] memory userFeedbacks = new Feedback[](count);
+        uint256 index = 0;
+        for (uint256 i = 0; i < feedbacks.length; i++) {
+            if (feedbacks[i].user == userAddress) {
+                userFeedbacks[index] = feedbacks[i];
+                index++;
+            }
+        }
+
+        return userFeedbacks;
+    }
 }
