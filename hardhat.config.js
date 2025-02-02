@@ -24,6 +24,10 @@ module.exports = {
       chainId: 324,
       zksync: true,
     },
+    sepolia: {
+      url: 'https://sepolia.infura.io/v3/18614d8b7e534f2c80315ca7334420c1',
+      accounts: ['76dead1cb9e439c6299f82cc0c60c0f75735c3f520cfd1bcbc57c46cde75dcc5'],
+    },
   },
   paths: {
     artifacts: "./artifacts-zk",
